@@ -1,0 +1,11 @@
+<mat-toolbar style="background: #00838F;">
+  <mat-toolbar-row>
+    <span>{{ userSopport }}</span>
+    <span class="example-spacer"></span>
+    <button mat-button [matMenuTriggerFor]="menu"> <mat-icon>filter_list</mat-icon></button>
+      <mat-menu #menu="matMenu">
+        <button (click)="logout()" mat-menu-item>Cerrar Sesión</button>
+        <!-- <button mat-menu-item>Item 2</button> -->
+      </mat-menu>
+  </mat-toolbar-row>
+</mat-toolbar>

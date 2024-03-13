@@ -1,0 +1,188 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <div class="card">
+        <div class="body">
+          <div class="responsive_table">
+            <div class="materialTableHeader">
+              <div class="row justify-content-center">
+                <!-- #START# Header personalizado de tabla  -->
+                <div class="col-8 ">
+                  <ul class="header-buttons-left ml-0">
+                    <!-- #START# Titulo  -->
+                    <li class="dropdown">
+                      <h2>
+                        <strong>DISPOSITIVOS</strong>
+                      </h2>
+                    </li>
+                    <!-- #END# Titulo  -->
+                    <!-- #START# Buscador  -->
+                    <li class="dropdown m-l-20">
+                      <label for="search-input"><i class="material-icons search-icon">search</i></label>
+                      <input placeholder="Buscar" type="text" #filter class="browser-default search-field"
+                        aria-label="Search box">
+                    </li>
+                    <!-- #END# Buscador  -->
+                    <!-- #START# Borrar seleccionados  -->
+                    <li>
+                      <div class="icon-button-demo m-l-10" [hidden]=!selection.hasValue()>
+                        <button mat-mini-fab color="warn" (click)="removeSelectedRows()">
+                          <mat-icon class="col-white">delete</mat-icon>
+                        </button>
+                      </div>
+                    </li>
+                    <!-- #END# Borrar seleccionados  -->
+                  </ul>
+                </div>
+                <!-- #END# Header personalizado de tabla  -->
+
+                <!-- #START# Acciones tablas general  -->
+                <div class="col-4">
+                  <ul class="header-buttons">
+                    <!-- #START# Agregar  -->
+                    <li>
+                      <div class="icon-button-demo">
+                        <button mat-mini-fab color="primary" (click)="addNew()">
+                          <mat-icon class="col-white">add</mat-icon>
+                        </button>
+                      </div>
+                    </li>
+                    <!-- #END# Agregar  -->
+                    <!-- #START# Refrescar tabla  -->
+                    <li>
+                      <div class="icon-button-demo">
+                        <button mat-mini-fab color="primary" (click)="refresh()">
+                          <mat-icon class="col-white">refresh</mat-icon>
+                        </button>
+                      </div>
+                    </li>
+                    <!-- #END# Refrescar tabla  -->
+                  </ul>
+                </div>
+                <!-- #END# Acciones tablas general  -->
+              </div>
+            </div>
+
+            <div *ngIf="dataSource.loading$ | async"
+              style="display: flex; justify-content: center; align-items: center; background: white;">
+              <mat-progress-spinner color="primary" mode="indeterminate">
+              </mat-progress-spinner>
+            </div>
+
+            <!-- #START# Tabla de dispositivos  -->
+            <mat-table #table [dataSource]="dataSource" matSort class="mat-cell">
+              <!-- Columna de CheckBox -->
+              <ng-container matColumnDef="select">
+                <mat-header-cell *matHeaderCellDef [ngClass]="'tbl-col-width-per-10'">
+                  <mat-checkbox (change)="$event ? masterToggle() : null"
+                    [checked]="selection.hasValue() && isAllSelected()"
+                    [indeterminate]="selection.hasValue() && !isAllSelected()" [ngClass]="'tbl-checkbox'">
+                  </mat-checkbox>
+                </mat-header-cell>
+                <mat-cell *matCellDef="let row" [ngClass]="'tbl-col-width-per-10'">
+                  <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
+                    [checked]="selection.isSelected(row)" [ngClass]="'tbl-checkbox'">
+                  </mat-checkbox>
+                </mat-cell>
+              </ng-container>
+
+              <!-- Columna de ID -->
+              <ng-container matColumnDef="id">
+                <mat-header-cell *matHeaderCellDef [ngClass]="'tbl-col-width-per-10'">Id
+                </mat-header-cell>
+                <mat-cell *matCellDef="let row" [ngClass]="'tbl-col-width-per-10'">{{row.id}}</mat-cell>
+              </ng-container>
+
+              <!-- Columna de imagen -->
+              <ng-container matColumnDef="img">
+                <mat-header-cell mat-header-cell *matHeaderCellDef
+                  [ngClass]="' center-table-header tbl-col-width-per-10'"> Imagen
+                </mat-header-cell>
+                <mat-cell mat-cell *matCellDef="let row" class=" center-table-cell table-img tbl-col-width-per-10">
+                  <img src="assets/images/devices/{{row.type}}.png" />
+                </mat-cell>
+              </ng-container>
+
+              <!-- Columna de Alias -->
+              <ng-container matColumnDef="alias">
+                <mat-header-cell *matHeaderCellDef mat-sort-header class="center-table-header tbl-col-width-per-35">
+                  Alias
+                </mat-header-cell>
+                <mat-cell *matCellDef="let row" class="center-table-cell tbl-col-width-per-35">
+                  {{row.alias}}</mat-cell>
+              </ng-container>
+
+              <!-- Columna de Serial -->
+              <ng-container matColumnDef="serial">
+                <mat-header-cell *matHeaderCellDef mat-sort-header class="center-table-header tbl-col-width-per-20">
+                  UID
+                </mat-header-cell>
+                <mat-cell *matCellDef="let row" class="center-table-cell tbl-col-width-per-20">
+                  {{row.serial}}</mat-cell>
+              </ng-container>
+
+              <!-- Columna de Direeción MAC -->
+              <ng-container matColumnDef="macid">
+                <mat-header-cell *matHeaderCellDef [ngClass]="'center-table-header tbl-col-width-per-20'">MAC
+                </mat-header-cell>
+                <mat-cell *matCellDef="let row" [ngClass]="'center-table-cell tbl-col-width-per-20'">
+                  {{row.macid}}</mat-cell>
+              </ng-container>
+
+              <!-- Columna de Direeción Tipo -->
+              <ng-container matColumnDef="type">
+                <mat-header-cell *matHeaderCellDef mat-sort-header
+                  [ngClass]="'center-table-header tbl-col-width-per-10'">Sistema
+                </mat-header-cell>
+                <mat-cell *matCellDef="let row" [ngClass]="'center-table-cell tbl-col-width-per-10'">
+                  <span>
+                    {{row.type | uppercase}}</span>
+                </mat-cell>
+              </ng-container>
+
+              <!-- Columna de Direeción Estado -->
+              <ng-container matColumnDef="state">
+                <mat-header-cell *matHeaderCellDef [ngClass]="'center-table-header tbl-col-width-per-10'">Estado
+                </mat-header-cell>
+                <mat-cell *matCellDef="let row" [ngClass]="'center-table-cell tbl-col-width-per-10'">
+
+                  <i class="material-icons"
+                    [ngClass]="{'on': row.state== 1,'off': row.state== 0, 'unknown': row.state== 2 }">power_settings_new</i>
+                </mat-cell>
+              </ng-container>
+
+              <!-- actions -->
+              <ng-container matColumnDef="actions">
+                <mat-header-cell *matHeaderCellDef class="pr-0 center-table-header">Actions</mat-header-cell>
+                <mat-cell *matCellDef="let row; let i=index;" class="pr-0 center-table-cell">
+                  <button mat-icon-button color="accent" class="btn-tbl-edit" (click)="$event.stopPropagation()"
+                    (click)="editCall(row)">
+                    <mat-icon aria-label="Edit" class="col-white">edit</mat-icon>
+                  </button>
+                  <button mat-icon-button color="accent" class="btn-tbl-delete" (click)="$event.stopPropagation()"
+                    (click)="deleteItem(row)">
+                    <mat-icon aria-label="Delete" class="col-white">delete</mat-icon>
+                  </button>
+                </mat-cell>
+              </ng-container>
+              <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="reviewDevice(row)"
+                [style.cursor]="'pointer'" matRipple>
+              </mat-row>
+            </mat-table>
+
+            <div class="no-results" [style.display]="dataSource.dataleng == 0 ? '' : 'none'">
+              No hay ningún dispositivo
+            </div>
+
+
+            <mat-paginator #paginator [length]="dataSource.dataleng" [pageIndex]="0" [pageSize]="10"
+              [pageSizeOptions]="[5, 10, 25, 100]">
+            </mat-paginator>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

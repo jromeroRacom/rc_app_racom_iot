@@ -1,0 +1,267 @@
+<div class="responsive_table">
+  <!-- <div class="materialTableHeader">
+    <div class="row">
+      <div class="col-8">
+        <ul class="header-buttons-left ml-0">
+          <li class="dropdown">
+            <h2>
+              <strong>Dispositivos</strong>
+            </h2>
+          </li>
+          <li class="dropdown m-l-20">
+            <label for="search-input"><i class="material-icons search-icon">search</i></label>
+            <input placeholder="Buscar" type="text" #filter class="browser-default search-field"
+              aria-label="Search box">
+          </li>
+        </ul>
+      </div>
+      <div class="col-4">
+        <ul class="header-buttons">
+          <li>
+            <div class="icon-button-demo">
+              <button mat-mini-fab color="accent" (click)="addRow()">
+                <mat-icon class="col-white">add</mat-icon>
+              </button>
+            </div>
+          </li>
+          <li>
+            <div class="icon-button-demo">
+              <button mat-mini-fab color="accent" (click)="refreshData()">
+                <mat-icon class="col-white">refresh</mat-icon>
+              </button>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div> -->
+
+  <div  style="min-width: 84rem;" class="materialTableHeader">
+    <div class="row">
+      <div class="col-12">
+        <mat-toolbar-row>
+          <ul class="header-buttons-left ml-0">
+            <li class="dropdown">
+              <h2>
+                <strong style="color: white;">Dispositivos</strong>
+              </h2>
+            </li>
+            <li class="dropdown m-l-20">
+              <mat-label for="search-input"><i class="material-icons search-icon">search</i></mat-label>
+              <input matInput placeholder="Buscar" type="text" #filter class="browser-default search-field"
+                aria-label="Search box">
+            </li>
+          </ul>
+          <span class="example-spacer"></span>
+          <div class="icon-button-demo">
+            <button mat-mini-fab color="accent" (click)="addRow()">
+              <mat-icon class="col-white">add</mat-icon>
+            </button>
+          </div>
+          <div class="icon-button-demo">
+            <button mat-mini-fab color="accent" (click)="refreshData()">
+              <mat-icon class="col-white">refresh</mat-icon>
+            </button>
+          </div>
+        </mat-toolbar-row>
+      </div>
+    </div>
+  </div>
+
+  <!-- #START# Tabla de dispositivos  -->
+  <table mat-table #table [dataSource]="dataSource" matSort class="mat-cell w-100 ">
+
+    <!-- Columna de serial -->
+    <ng-container matColumnDef="serial">
+      <mat-header-cell *matHeaderCellDef mat-sort-header [ngClass]="'center-table-header tbl-col-width-per-70'">UID
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"
+        [ngClass]="'center-table-cell tbl-col-width-per-70'">
+        <span>
+          {{row.serial}}</span>
+      </mat-cell>
+    </ng-container>
+
+
+    <!-- Columna de alias -->
+    <ng-container matColumnDef="alias">
+      <mat-header-cell *matHeaderCellDef mat-sort-header [ngClass]="'center-table-header tbl-col-width-per-20'">Alias
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"
+        [ngClass]="'center-table-cell tbl-col-width-per-20'">
+        <span>
+          {{row.alias}}</span>
+      </mat-cell>
+    </ng-container>
+
+    <!-- Columna de macid -->
+    <ng-container matColumnDef="macid">
+      <mat-header-cell *matHeaderCellDef mat-sort-header [ngClass]="'center-table-header tbl-col-width-per-20'">MAC
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"
+        [ngClass]="'center-table-cell tbl-col-width-per-20'">
+        <span>
+          {{row.macid}}</span>
+      </mat-cell>
+    </ng-container>
+
+    <!-- Columna de fwVersion -->
+    <ng-container matColumnDef="fwVersion">
+      <mat-header-cell *matHeaderCellDef mat-sort-header [ngClass]="'center-table-header tbl-col-width-per-20'">
+        fwVersion
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"
+        [ngClass]="'center-table-cell tbl-col-width-per-20'">
+        <span>
+          {{row.fwVersion}}</span>
+      </mat-cell>
+    </ng-container>
+
+    <!-- Columna de hwVersion -->
+    <ng-container matColumnDef="hwVersion">
+      <mat-header-cell *matHeaderCellDef mat-sort-header [ngClass]="'center-table-header tbl-col-width-per-20'">
+        hwVersion
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"
+        [ngClass]="'center-table-cell tbl-col-width-per-20'">
+        <span>
+          {{row.hwVersion}}</span>
+      </mat-cell>
+    </ng-container>
+
+    <!-- Columna de type -->
+    <ng-container matColumnDef="type">
+      <mat-header-cell *matHeaderCellDef mat-sort-header [ngClass]="'center-table-header tbl-col-width-per-20'">Tipo
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"
+        [ngClass]="'center-table-cell tbl-col-width-per-20'">
+        <span>
+          {{row.type | uppercase}}</span>
+      </mat-cell>
+    </ng-container>
+
+    <!-- Columna de state -->
+    <ng-container matColumnDef="state">
+      <mat-header-cell *matHeaderCellDef mat-sort-header class="center-table-header tbl-col-width-per-10">
+        Estado
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"
+        class="center-table-cell tbl-col-width-per-10">
+        <mat-icon *ngIf="row.state" class="col-green">check_circle</mat-icon>
+        <mat-icon *ngIf="!row.state" class="col-grey">lens</mat-icon>
+      </mat-cell>
+    </ng-container>
+
+    <!-- Columna de assigned -->
+    <ng-container matColumnDef="assigned">
+      <mat-header-cell *matHeaderCellDef mat-sort-header class="center-table-header tbl-col-width-per-10">
+        Asignado
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"
+        class="center-table-cell tbl-col-width-per-10">
+        <mat-icon *ngIf="row.assigned" class="col-green">check_circle</mat-icon>
+        <mat-icon *ngIf="!row.assigned" class="col-grey">lens</mat-icon>
+      </mat-cell>
+    </ng-container>
+
+    <!-- Columna de rol -->
+    <ng-container matColumnDef="role">
+      <mat-header-cell *matHeaderCellDef mat-sort-header class="center-table-header tbl-col-width-per-15">
+        Rol
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"
+        class="center-table-cell tbl-col-width-per-15">
+        {{row.role}}</mat-cell>
+    </ng-container>
+
+    <!-- Columna de Creado a las  -->
+    <ng-container matColumnDef="createdAt">
+      <mat-header-cell *matHeaderCellDef mat-sort-header [ngClass]="'center-table-header tbl-col-width-per-20'">Creado
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"
+        [ngClass]="'center-table-cell tbl-col-width-per-20'">
+        {{row.createdAt | date:'medium'}}</mat-cell>
+    </ng-container>
+
+    <!-- Columna de Actualizado a las  -->
+    <ng-container matColumnDef="updatedAt">
+      <mat-header-cell *matHeaderCellDef mat-sort-header [ngClass]="'center-table-header tbl-col-width-per-20'">
+        Actualizado
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"
+        [ngClass]="'center-table-cell tbl-col-width-per-20'">
+        {{row.updatedAt | date:'medium'}}}</mat-cell>
+    </ng-container>
+
+
+    <!-- actions -->
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef class="pr-0 center-table-header">Actions</mat-header-cell>
+      <mat-cell *matCellDef="let row; let i=index;" class="pr-0 center-table-cell">
+        <button  color="accent" class="btn btn-tbl-edit" (click)="$event.stopPropagation()"
+          (click)="reviewRow(row)">
+          <mat-icon aria-label="Edit" class="col-white">remove_red_eye</mat-icon>
+        </button>
+        <button  color="accent" class="btn btn-tbl-edit" (click)="$event.stopPropagation()"
+          (click)="editRow(row)">
+          <mat-icon aria-label="Edit" class="col-white">edit</mat-icon>
+        </button>
+        <button  color="accent" class="btn btn-tbl-delete" (click)="$event.stopPropagation()"
+          (click)="deleteRow(row)">
+          <mat-icon aria-label="Delete" class="col-white">delete</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="true" [style.cursor]="'pointer'" matRipple
+      (click)="detailsRow(row)">
+    </mat-row>
+  </table>
+
+  <!-- context menu start -->
+  <div style="visibility: hidden; position: fixed" [style.left]="contextMenuPosition.x"
+    [style.top]="contextMenuPosition.y" [matMenuTriggerFor]="contextMenu">
+  </div>
+  <mat-menu #contextMenu="matMenu">
+    <ng-template matMenuContent let-item="item">
+      <button mat-menu-item (click)="addRow()">
+        <mat-icon>add_box</mat-icon>
+        <span>Agregar dispositivo</span>
+      </button>
+      <button mat-menu-item (click)="editRow(item)">
+        <mat-icon>create</mat-icon>
+        <span>Editar dispositivo</span>
+      </button>
+      <button mat-menu-item (click)="deleteRow(item)">
+        <mat-icon>delete</mat-icon>
+        <span>Borrar dispositivo</span>
+      </button>
+      <button mat-menu-item (click)="detailsRow(item)">
+        <mat-icon>file_download</mat-icon>
+        <span>Detalles de dispositivo</span>
+      </button>
+      <button mat-menu-item (click)="detailsRow(item)">
+        <mat-icon>file_download</mat-icon>
+        <span>Ver de dispositivo</span>
+      </button>
+    </ng-template>
+  </mat-menu>
+
+  <!-- Loading spinner -->
+  <div *ngIf="dataSource.flagLoading" class="tbl-spinner">
+    <mat-progress-spinner color="primary" [diameter]="40" mode="indeterminate">
+    </mat-progress-spinner>
+  </div>
+
+  <div *ngIf="!dataSource.flagLoading" class="no-results m-l-20 m-t-5"
+    [style.display]="dataSource.renderedData.length == 0 ? '' : 'none'">
+    No hay ningún registro
+  </div>
+
+
+  <mat-paginator #paginator [length]="dataSource.filteredData.length" [pageIndex]="0" [pageSize]="10"
+    [pageSizeOptions]="[5, 10, 25, 100]">
+  </mat-paginator>
+
+</div>

@@ -1,0 +1,155 @@
+<div class="responsive_table">
+  <!-- <div class="materialTableHeader">
+    <div class="row">
+      <div class="col-8">
+        <ul class="header-buttons-left ml-0">
+          <li class="dropdown">
+            <h2>
+              <strong>Tipos de dispositivos</strong></h2>
+          </li>
+          <li class="dropdown m-l-20">
+            <label for="search-input"><i class="material-icons search-icon">search</i></label>
+            <input placeholder="Buscar" type="text" #filter class="browser-default search-field"
+              aria-label="Search box">
+          </li>
+        </ul>
+      </div>
+      <div class="col-4">
+        <ul class="header-buttons">
+          <li>
+            <div class="icon-button-demo">
+              <button mat-mini-fab color="primary" (click)="addRow()">
+                <mat-icon class="col-white">add</mat-icon>
+              </button>
+            </div>
+          </li>
+          <li>
+            <div class="icon-button-demo">
+              <button mat-mini-fab color="primary" (click)="refreshData()">
+                <mat-icon class="col-white">refresh</mat-icon>
+              </button>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div> -->
+  <div style="min-width: 46rem;" class="materialTableHeader">
+    <div class="row">
+      <div class="col-12">
+        <mat-toolbar-row>
+          <ul class="header-buttons-left ml-0">
+            <li class="dropdown">
+              <h2>
+                <strong style="color: white;">Tipos de dispositivos</strong>
+              </h2>
+            </li>
+            <li class="dropdown m-l-20">
+              <mat-label for="search-input"><i class="material-icons search-icon">search</i></mat-label>
+              <input matInput placeholder="Buscar" type="text" #filter class="browser-default search-field"
+                aria-label="Search box">
+            </li>
+          </ul>
+          <span class="example-spacer"></span>
+          <div style="margin-left: 2rem;" class="icon-button-demo">
+            <button mat-mini-fab color="accent" (click)="addRow()">
+              <mat-icon class="col-white">add</mat-icon>
+            </button>
+          </div>
+          <div class="icon-button-demo">
+            <button mat-mini-fab color="accent" (click)="refreshData()">
+              <mat-icon class="col-white">refresh</mat-icon>
+            </button>
+          </div>
+        </mat-toolbar-row>
+      </div>
+    </div>
+  </div>
+
+  <!-- #START# Tabla de dispositivos  -->
+  <table mat-table #table [dataSource]="dataSource" matSort class="mat-cell w-100">
+
+     <!-- Columna de imagen -->
+     <ng-container matColumnDef="img">
+      <mat-header-cell *matHeaderCellDef
+        [ngClass]="' center-table-header tbl-col-width-per-50'"> Imagen
+      </mat-header-cell>
+      <mat-cell  mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)" class=" center-table-cell table-img tbl-col-width-per-50">
+        <img src="assets/images/devices/{{row.type}}.png" />
+      </mat-cell>
+    </ng-container>
+
+    <!-- Columna de Tipo -->
+    <ng-container matColumnDef="type">
+      <mat-header-cell style="padding: 0 13rem 0 13rem;" *matHeaderCellDef mat-sort-header
+        [ngClass]="'center-table-header tbl-col-width-per-50'">Tipo
+      </mat-header-cell>
+      <mat-cell style="padding: 0 13rem 0 13rem;" mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"
+        [ngClass]="'center-table-cell tbl-col-width-per-50'">
+        <span>
+          {{row.type | uppercase}}</span>
+      </mat-cell>
+    </ng-container>
+
+
+    <!-- actions -->
+    <ng-container matColumnDef="actions">
+      <mat-header-cell  *matHeaderCellDef class="pr-0 center-table-header">Actions</mat-header-cell>
+      <mat-cell mat-cell *matCellDef="let row; let i=index;" class="pr-0 center-table-cell ">
+        <button  color="accent" class="btn btn-tbl-edit" (click)="$event.stopPropagation()"
+          (click)="editRow(row)">
+          <mat-icon aria-label="Edit" class="col-white">edit</mat-icon>
+        </button>
+        <button  color="accent" class="btn btn-tbl-delete" (click)="$event.stopPropagation()"
+          (click)="deleteRow(row)">
+          <mat-icon aria-label="Delete" class="col-white">delete</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"
+    (click)="true"
+    [style.cursor]="'pointer'" matRipple>
+    </mat-row>
+  </table>
+
+  <!-- context menu start -->
+  <div style="visibility: hidden; position: fixed" [style.left]="contextMenuPosition.x"
+    [style.top]="contextMenuPosition.y" [matMenuTriggerFor]="contextMenu">
+  </div>
+  <mat-menu #contextMenu="matMenu">
+    <ng-template matMenuContent let-item="item">
+      <button mat-menu-item (click)="addRow()">
+        <mat-icon>add_box</mat-icon>
+        <span>Agregar tipo de dispositivo</span>
+      </button>
+      <button mat-menu-item (click)="editRow(item)">
+        <mat-icon>create</mat-icon>
+        <span>Editar tipo de dispositivo</span>
+      </button>
+      <button mat-menu-item (click)="deleteRow(item)">
+        <mat-icon>delete</mat-icon>
+        <span>Borrar tipo de dispositivo</span>
+      </button>
+    </ng-template>
+  </mat-menu>
+
+  <!-- Loading spinner -->
+  <div *ngIf="dataSource.flagLoading" class="tbl-spinner">
+    <mat-progress-spinner color="primary" [diameter]="40" mode="indeterminate">
+    </mat-progress-spinner>
+  </div>
+
+  <div *ngIf="!dataSource.flagLoading" class="no-results m-l-20 m-t-5"
+      [style.display]="dataSource.renderedData.length == 0 ? '' : 'none'">
+      No hay ningún registro
+    </div>
+
+
+  <mat-paginator #paginator [length]="dataSource.filteredData.length" [pageIndex]="0" [pageSize]="10"
+    [pageSizeOptions]="[5, 10, 25, 100]">
+  </mat-paginator>
+
+</div>
+

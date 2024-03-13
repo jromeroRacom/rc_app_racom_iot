@@ -1,0 +1,66 @@
+<div class="addContainer">
+  <div class="modalHeader">
+    <div class="editRowModal">
+      <div class="modalHeader clearfix">
+        <img src="assets/images/devices/none.png" alt="avatar">
+        <div class="modal-about">
+          <div class="font-weight-bold p-t-5 p-l-10 font-17">
+            {{dialogTitle}}</div>
+        </div>
+      </div>
+    </div>
+    <button mat-icon-button (click)="dialogRef.close()" aria-label="Close dialog">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <div mat-dialog-content>
+    <form class="register-form m-4" [formGroup]="mqttUserForm" (ngSubmit)="onSubmit">
+
+      <div class="row justify-content-center">
+        <div class="col-xl-10 col-lg-10 col-md-10 col-sm-12  mb-2">
+          <mat-form-field class="example-full-width">
+            <mat-label>Usuario</mat-label>
+            <input matInput formControlName="username">
+            <mat-icon matSuffix>person</mat-icon>
+            <mat-error *ngIf="formValidators.fieldValidate('username')">
+              {{formValidators.getError('username')}}
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row justify-content-center">
+        <div class="col-xl-10 col-lg-10 col-md-10 col-sm-12  mb-2">
+          <mat-form-field class="example-full-width">
+            <mat-label>Contraseña</mat-label>
+            <input matInput formControlName="password">
+            <mat-icon matSuffix>lock</mat-icon>
+            <mat-error *ngIf="formValidators.fieldValidate('password')">
+              {{formValidators.getError('password')}}
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row justify-content-center">
+        <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8  mb-2">
+          <mat-checkbox class="example-margin" formControlName="is_superuser">Superusuario</mat-checkbox>
+          <mat-error *ngIf="formValidators.fieldValidate('is_superuser')">
+            {{formValidators.getError('is_superuser')}}
+          </mat-error>
+        </div>
+      </div>
+
+      <div class="row justify-content-center">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+          <div class="example-button-row" style="text-align:center;">
+            <button mat-raised-button color="primary" type="submit" [disabled]="!mqttUserForm.valid"
+              [mat-dialog-close]="mqttUserForm.getRawValue()">Aceptar</button>
+            <button mat-raised-button color="warn" (click)="onNoClick()" tabindex="-1">Cancelar</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

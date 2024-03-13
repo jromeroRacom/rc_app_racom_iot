@@ -1,0 +1,124 @@
+<div class="addContainer">
+  <div class="modalHeader">
+    <div class="editRowModal">
+      <div class="modalHeader clearfix">
+        <div class="modal-about">
+          <div class="font-weight-bold p-t-5 p-l-10 font-17">
+            {{dialogTitle}}</div>
+        </div>
+      </div>
+    </div>
+    <button mat-icon-button (click)="dialogRef.close()" aria-label="Close dialog">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <div mat-dialog-content>
+    <form class="register-form m-4" [formGroup]="userForm" (ngSubmit)="onSubmit">
+
+      <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+          <mat-form-field class="example-full-width">
+            <mat-label>Nombre</mat-label>
+            <input matInput formControlName="name" autocomplete="name">
+            <mat-icon matSuffix>face</mat-icon>
+            <mat-error *ngIf="formValidators.fieldValidate('name')">
+              {{formValidators.getError('name')}}
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+          <mat-form-field class="example-full-width">
+            <mat-label>Correo</mat-label>
+            <input matInput formControlName="email" autocomplete="email">
+            <mat-icon matSuffix>email</mat-icon>
+            <mat-error *ngIf="formValidators.fieldValidate('email')">
+              {{formValidators.getError('email')}}
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+          <div style="text-align: center;" class="">
+            <mat-form-field class="example-full-width">
+              <mat-label>Rol</mat-label>
+              <mat-error *ngIf="formValidators.fieldValidate('role')">
+                {{formValidators.getError('role')}}
+              </mat-error>
+              <mat-select  formControlName="role" >
+                <mat-option>--</mat-option>
+                <mat-option *ngFor="let role of data.roles" [value]="role">
+                  <strong>{{role | uppercase}}</strong>
+                </mat-option>
+
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+
+      <div class="row justify-content-center">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12  mb-2">
+          <mat-checkbox class="example-margin" formControlName="state">Activado</mat-checkbox>
+          <mat-error *ngIf="formValidators.fieldValidate('state')">
+            {{formValidators.getError('state')}}
+          </mat-error>
+        </div>
+      </div>
+
+      <div class="row justify-content-center" *ngIf="action === 'edit'">
+        <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8  mb-2">
+          <mat-checkbox class="example-margin" formControlName="showPass"> Cambiar contraseña </mat-checkbox>
+        </div>
+      </div>
+
+      <div class="row justify-content-center">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12  mb-2">
+          <mat-form-field class="example-full-width">
+            <mat-label>Contraseña</mat-label>
+            <input matInput type="password" formControlName="password"
+            id="password" [type]="hide ? 'password' : 'text'" required autocomplete="new-password"
+            [ngClass]="{ 'is-invalid':  formValidators.fieldValidate('password') }"
+            placeholder="Contraseña" />
+            <mat-icon   matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            <mat-error *ngIf="formValidators.fieldValidate('password')">
+              {{formValidators.getError('email')}}
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row justify-content-center">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12  mb-2">
+          <mat-form-field class="example-full-width">
+            <mat-label>Repite contraseña</mat-label>
+            <input matInput [type]="chide ? 'password' : 'text'" formControlName="cpassword"
+            required autocomplete="new-password"
+              id="cpassword" [ngClass]="{ 'is-invalid': formValidators.comparePasswords('password', 'cpassword') }"
+              placeholder="Confirm Password" />
+            <mat-icon matSuffix (click)="chide = !chide">{{chide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            <mat-error *ngIf="formValidators.fieldValidate('password')">
+              Las contraseñas no coinciden
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+
+
+      <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+          <div class="example-button-row" style="text-align:center;">
+            <button mat-raised-button color="primary" type="submit" [disabled]="!userForm.valid"
+              [mat-dialog-close]="userForm.getRawValue()">Aceptar</button>
+            <button mat-raised-button color="warn" (click)="onNoClick()" tabindex="-1">Cancelar</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

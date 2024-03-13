@@ -1,0 +1,54 @@
+<form action=""
+      autocomplete="off"
+      [formGroup]="myform"
+      (ngSubmit)="register()">
+
+  <!--name-->
+  <mat-form-field appearance="fill">
+
+    <mat-label>Enter your name</mat-label>
+      <input matInput
+             type="name"
+             formControlName="name"
+             required>
+
+    </mat-form-field>
+  <br>
+  <!--email-->
+  <mat-form-field appearance="fill">
+
+    <mat-label>Enter your email</mat-label>
+    <input matInput
+          placeholder="pat@example.com"
+          type="email"
+          formControlName="email"
+          required>
+  </mat-form-field>
+  <br>
+
+  <!--Password-->
+  <mat-form-field appearance="fill">
+
+    <mat-label>Enter your password</mat-label>
+    <input matInput
+           type="password"
+           formControlName="password">
+  </mat-form-field>
+      <br>
+      <button mat-raised-button
+              type="submit"
+              extended
+              color="primary"
+              [disabled]="myform.invalid">
+              Registrar
+      </button>
+    <div>
+      <span class="form-text">
+        ¿Ya tienes cuenta?
+      </span>
+
+      <a routerLink="/support/auth">
+        Ingresar
+      </a>
+    </div>
+</form>

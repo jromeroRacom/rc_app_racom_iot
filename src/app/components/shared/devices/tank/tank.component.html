@@ -1,0 +1,16 @@
+<div class="water-container clearfix">
+  <div class="glass">
+    <div class="text1" (click)="onLabelClick('main')">  <span class="count">{{getUnitsValue}}</span> {{units}}
+    </div>
+    <div class="logo"> <img src="assets/images/racom.png" alt=""> </div>
+    <div class="water tank-height-per-{{value}}"></div>
+
+  </div>
+  <div *ngFor="let label of labelsT">
+    <div
+    class="label-{{label.value}} {{label.color}}" (click)="onLabelClick(label.alias)">
+      <span>{{label.value}}%</span>
+    </div>
+  </div>
+
+</div>

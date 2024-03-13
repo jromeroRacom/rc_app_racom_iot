@@ -1,0 +1,166 @@
+<div class="responsive_table">
+  <!-- <div class="materialTableHeader">
+    <div class="row">
+      <div class="col-8">
+        <ul class="header-buttons-left ml-0">
+          <li class="dropdown">
+            <h2>
+              <strong>Sesiones</strong></h2>
+          </li>
+          <li class="dropdown m-l-20">
+            <label for="search-input"><i class="material-icons search-icon">search</i></label>
+            <input placeholder="Buscar" type="text" #filter class="browser-default search-field"
+              aria-label="Search box">
+          </li>
+        </ul>
+      </div>
+      <div class="col-4">
+        <ul class="header-buttons">
+          <li>
+            <div class="icon-button-demo">
+              <button mat-mini-fab color="primary" (click)="refreshData()">
+                <mat-icon class="col-white">refresh</mat-icon>
+              </button>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <br> -->
+  <div style="min-width: 60rem;" class="materialTableHeader">
+    <div class="row">
+      <div class="col-12">
+        <mat-toolbar-row>
+          <ul class="header-buttons-left ml-0">
+            <li class="dropdown">
+              <h2>
+                <strong style="color: white;">Sesiones</strong>
+              </h2>
+            </li>
+            <li class="dropdown m-l-20">
+              <mat-label for="search-input"><i class="material-icons search-icon">search</i></mat-label>
+              <input matInput placeholder="Buscar" type="text" #filter class="browser-default search-field"
+                aria-label="Search box">
+            </li>
+          </ul>
+          <span class="example-spacer"></span>
+          <div class="icon-button-demo">
+            <button mat-mini-fab color="accent" (click)="refreshData()">
+              <mat-icon class="col-white">refresh</mat-icon>
+            </button>
+          </div>
+        </mat-toolbar-row>
+      </div>
+    </div>
+  </div>
+
+  <!-- #START# Tabla de dispositivos  -->
+  <table mat-table #table [dataSource]="dataSource" matSort class="mat-cell">
+
+    <!-- Columna de Id -->
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef mat-sort-header
+        [ngClass]="'center-table-header tbl-col-width-per-50'">Sesión
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row"
+        [ngClass]="'center-table-cell tbl-col-width-per-50'">
+        <span>
+          {{row.id}}</span>
+      </mat-cell>
+    </ng-container>
+
+     <!-- Columna de ip -->
+     <ng-container matColumnDef="ip">
+      <mat-header-cell *matHeaderCellDef mat-sort-header
+        [ngClass]="'center-table-header tbl-col-width-per-50'">IP
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row"
+        [ngClass]="'center-table-cell tbl-col-width-per-50'">
+        <span>
+          {{row.ip || ''}}</span>
+      </mat-cell>
+    </ng-container>
+
+     <!-- Columna de city -->
+     <ng-container matColumnDef="city">
+      <mat-header-cell *matHeaderCellDef mat-sort-header
+        [ngClass]="'center-table-header tbl-col-width-per-50'">Ciudad
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row"
+        [ngClass]="'center-table-cell tbl-col-width-per-50'">
+        <span>
+          {{row.city || ''}}</span>
+      </mat-cell>
+    </ng-container>
+
+    <!-- Columna de User -->
+    <ng-container matColumnDef="user">
+      <mat-header-cell *matHeaderCellDef mat-sort-header
+        [ngClass]="'center-table-header tbl-col-width-per-50'">Usuario
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row"
+        [ngClass]="'center-table-cell tbl-col-width-per-50'">
+        <span>
+          {{row.user}}</span>
+      </mat-cell>
+    </ng-container>
+
+      <!-- Columna de start  -->
+      <ng-container matColumnDef="start">
+      <mat-header-cell *matHeaderCellDef mat-sort-header
+        [ngClass]="'center-table-header tbl-col-width-per-20'">Inicio
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row"
+        [ngClass]="'center-table-cell tbl-col-width-per-20'">
+        {{row.start | date:'medium'}}</mat-cell>
+    </ng-container>
+
+     <!-- Columna de expiration  -->
+     <ng-container matColumnDef="expiration">
+      <mat-header-cell *matHeaderCellDef mat-sort-header
+        [ngClass]="'center-table-header tbl-col-width-per-20'">Expiración
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row"
+        [ngClass]="'center-table-cell tbl-col-width-per-20'">
+        {{row.expiration | date:'medium'}}</mat-cell>
+    </ng-container>
+
+
+    <!-- actions -->
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef class="pr-0 center-table-header">Actions</mat-header-cell>
+      <mat-cell *matCellDef="let row; let i=index;" class="pr-0 center-table-cell ">
+        <button  color="accent" class="btn btn-tbl-delete" (click)="$event.stopPropagation()"
+          (click)="deleteRow(row)">
+          <mat-icon aria-label="Delete" class="col-white">delete</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"
+    (click)="true"
+    [style.cursor]="'pointer'" matRipple>
+    </mat-row>
+  </table>
+
+
+  <!-- Loading spinner -->
+  <div *ngIf="dataSource.flagLoading" class="tbl-spinner">
+    <mat-progress-spinner color="primary" [diameter]="40" mode="indeterminate">
+    </mat-progress-spinner>
+  </div>
+
+  <div *ngIf="!dataSource.flagLoading" class="no-results m-l-20 m-t-5"
+      [style.display]="dataSource.renderedData.length == 0 ? '' : 'none'">
+      No hay ningúna sesión
+    </div>
+
+
+  <mat-paginator #paginator [length]="dataSource.filteredData.length" [pageIndex]="0" [pageSize]="10"
+    [pageSizeOptions]="[5, 10, 25, 100]">
+  </mat-paginator>
+
+</div>
+

@@ -1,0 +1,101 @@
+<div class="container-fluid p-0">
+  <div class="row g-0">
+    <div class="col-lg-4">
+      <div class="auth-content p-4 d-flex align-items-center min-vh-100">
+        <div class="w-100">
+          <div class="row justify-content-center">
+            <div class="col-lg-9">
+              <div>
+                <p>
+                <div style="text-align: right;">
+                <span style="font-size:larger;"
+                  matBadgeSize="large"
+                  matBadgeOverlap = "false"
+                  matBadge="?"
+                  matBadgeSize="large"
+                  matBadgePosition="before">
+                  <a style="text-decoration: none;" routerLink="/support/support-all" target="_blank">Asistencia de Racom</a>
+                </span>
+                </div>
+                <div class="text-center">
+                  <div>
+                    <a routerLink="/auth/signin" class="logo-full"><img src="assets/images/logo-full.png"
+                        alt="logo-full"></a>
+                  </div>
+
+                  <h4 class="font-20 mt-4">Bienvenido</h4>
+                  <p class="text-muted">Ingresa para acceder al control de dispositivos Racom.</p>
+                </div>
+
+                <div class="p-2 mt-5">
+                  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+                    <div *ngFor="let error of listErrors.errors" class="alert alert-danger  mb-3 mt-0">
+                      {{error.msg}}
+                    </div>
+
+                    <div class="form-group auth-form-group mb-4">
+                      <mat-icon matSuffix class="material-icons-outlined auth-page-icon">email</mat-icon>
+                      <input type="email" formControlName="email" class="form-control auth-control" id="email"
+                        autocomplete="email" required placeholder="Correo"
+                        [ngClass]="{ 'is-invalid': formValidators.fieldValidate('email') }">
+                      <div *ngIf="formValidators.fieldValidate('email')" class="invalid-feedback">
+                        <div> Ingresa una dirección de correo valida </div>
+                      </div>
+                    </div>
+
+                    <div class="form-group auth-form-group mb-4">
+                      <mat-icon matSuffix class="material-icons-outlined auth-page-icon">vpn_key</mat-icon>
+                      <input type="password" formControlName="password" class="form-control auth-control"
+                        autocomplete="current-password" required id="password"
+                        [ngClass]="{ 'is-invalid': formValidators.fieldValidate('password') }"
+                        placeholder="Contraseña" />
+                      <div *ngIf="formValidators.fieldValidate('password')" class="invalid-feedback">
+                        <div>{{formValidators.getError('password')}}</div>
+                      </div>
+                    </div>
+
+                    <div class="flex-sb-m w-full p-t-15 p-b-20">
+                      <div class="form-check m-0">
+                        <label class="form-check-label">
+                          <input class="form-check-input" type="checkbox" formControlName="check" value="">
+                          Recordarme
+                          <span class="form-check-sign">
+                            <span class="check"></span>
+                          </span>
+                        </label>
+                      </div>
+                      <div>
+                        <a style="text-decoration: none;" class="txt1" routerLink="/auth/forgot-password">¿Olvidaste tu contraseña?</a>
+                      </div>
+                    </div>
+
+                    <div class="container-login100-form-btn">
+                      <button mat-raised-button color="primary" class="login100-form-btn" type="submit"
+                        [disabled]="!loginForm.valid">
+                        Ingresar
+                      </button>
+                    </div>
+                  </form>
+                </div>
+                <!-- <div style="font-size:larger;" class="text-center">
+                  <p> Manual: <a routerLink="/auth/support" class="font-weight-medium text-primary">
+                    Asistencia de Racom </a> </p>
+                </div> -->
+                <div class="text-center">
+                  <p>¿No tienes cuenta? <a style="text-decoration: none;" routerLink="/auth/signup" class="font-weight-medium text-primary">
+                      Registrar </a> </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-8">
+      <div class="auth-bg">
+        <div class="bg-overlay"></div>
+      </div>
+    </div>
+  </div>
+</div>

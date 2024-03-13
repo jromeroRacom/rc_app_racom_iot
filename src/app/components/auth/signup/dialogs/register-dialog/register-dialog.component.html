@@ -1,0 +1,32 @@
+<div class="">
+
+
+  <div mat-dialog-content class="mat-mdc-dialog">
+
+    <div class="mt-0 mb-3">
+      <div class="font-weight-bold p-t-5 p-l-10 font-17" style="text-align: center;">
+        <h3>Registro correcto</h3>
+        <i class="fas fa-at fa-4x col-blue animate__animated animate__zoomIn"></i>
+      </div>
+    </div>
+
+    <div class="row  justify-content-center">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+        <div style="text-align: center;" class="">
+          <p><strong>El usuario <span class="col-blue ">{{data.user}} </span> se ha registrado correctamente. Para acceder al sistema es
+            necesario validar el correo. Se ha enviado un mensaje a <span class="col-blue ">{{data.email}} </span>
+            la recepción puede tomar algunos minutos. Algunas veces se direcciona al buzón de SPAM.
+          </strong></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="row justify-content-center">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+        <div class="" style="text-align:center;">
+          <button mat-raised-button color='primary' [mat-dialog-close]="1">Entendido</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

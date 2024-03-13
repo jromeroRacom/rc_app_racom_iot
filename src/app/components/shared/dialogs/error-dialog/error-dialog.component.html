@@ -1,0 +1,31 @@
+
+  <div mat-dialog-content class="mat-mdc-dialog">
+    <div class="mt-0 mb-3">
+      <div class="font-weight-bold p-t-5 p-l-10 font-17" style="text-align: center;">
+        <h3>{{data.title || 'Error'}}</h3>
+        <i class="fas fa-exclamation-triangle fa-4x col-red animate__animated animate__zoomIn"></i>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2 mt-3">
+        <div style="text-align: center;" class="">
+          <p><strong>¡¡Opss!!</strong> Ocurrió algún error</p>
+          <hr>
+          <div class="alert alert-danger" *ngFor="let error of data.errors">
+            <strong><i class="material-icons" style="color:red; font-size:18px">error</i>{{error.msg}}</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row justify-content-center">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+        <div class="example-button-row" style="text-align:center;">
+          <button mat-raised-button color="primary"
+            [mat-dialog-close]="1" > Aceptar </button>
+        </div>
+      </div>
+    </div>
+  </div>
+

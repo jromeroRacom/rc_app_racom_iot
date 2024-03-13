@@ -1,0 +1,33 @@
+<section class="content">
+	<div class="container-fluid">
+    <mat-toolbar>
+      <button mat-icon-button (click)="backClicked()"> <mat-icon class="mat-18">arrow_back</mat-icon> </button>
+      <span class="spacer"></span>
+      <h2 class="mt-1"> <span><i class="icon-bulb"></i></span> Dispositivos / MQTT/ ACL </h2>
+    </mat-toolbar>
+		<hr>
+
+		<div class="row clearfix">
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+				<div class="card">
+					<div class="body">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="card border-apply">
+									<div class="m-b-20">
+										<div class="row justify-content-lg-start">
+											<div class="col-12">
+                        <app-mqtt-acl-table></app-mqtt-acl-table>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+

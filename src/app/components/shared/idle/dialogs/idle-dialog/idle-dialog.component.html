@@ -1,0 +1,24 @@
+
+<div mat-dialog-content class="mat-mdc-dialog">
+
+  <div class="mt-0">
+    <div class="font-weight-bold p-t-5 p-l-10 font-17" style="text-align: center;">
+      <h3 >¿Sigues ahí?</h3>
+      <i class="far fa-hand-point-down fa-3x col-blue"></i>
+    </div>
+  </div>
+
+
+  <div class="row  justify-content-center">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+      <div style="text-align: center;">
+        <p><strong>La sesión está a punto de caducar en <span class="font-weight-bold font-15 col-red"> {{data.count}} </span> segundos por inactividad.</strong></p>
+        <button class="btn bg-green btn-lg btn-block waves-effect" type="button" [mat-dialog-close]="1">
+          ¡Sigo aquí!
+        </button>
+      </div>
+    </div>
+  </div>
+
+
+</div>

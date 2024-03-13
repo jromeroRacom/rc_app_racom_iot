@@ -1,0 +1,243 @@
+<section class="content">
+  <div class="container-fluid">
+    <mat-toolbar>
+      <button mat-icon-button (click)="backClicked()">
+        <mat-icon class="mat-18">arrow_back</mat-icon>
+      </button>
+      <span class="example-spacer"></span>
+      <h2 class="mt-1"> <span><i class="icon-bulb"></i></span> Dispositivos</h2>
+    </mat-toolbar>
+    <mat-toolbar>
+      <span class="example-spacer"></span>
+      <span>{{serial | uppercase}} / Detalle</span>
+    </mat-toolbar>
+    <hr>
+    <div class="row clearfix">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-b-40">
+        <div class="row justify-content-center m-l-5 m-t-5">
+          <!-- Caja de detalles -->
+          <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+            <mat-card appearance="outlined" >
+              <mat-card-header class="card-container center">
+                <mat-card-title> <strong>Detalles</strong> </mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+                <div class="row">
+
+                  <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                    <mat-list >
+                      <mat-list-item>
+                        <div matListItemTitle>  <strong>  Dispositivo </strong> </div>
+                        <mat-icon matListItemIcon>wifi</mat-icon>
+                        <div matListItemLine  matTooltip="Número de serie"> {{device?.serial ||'??'}} </div>
+                        <div matListItemLine>
+                          <span *ngIf="!mqttData?.status" class="label bg-red shadow-style"> Offline</span>
+                          <span *ngIf="mqttData?.status" class="label bg-green shadow-style"> Online </span>
+                        </div>
+                      </mat-list-item>
+                      <mat-list-item>
+                        <div matListItemTitle>  <strong>  Sistema </strong> </div>
+                        <mat-icon matListItemIcon>settings</mat-icon>
+                        <div matListItemLine> {{(device?.type | uppercase) || '??'}} </div>
+                      </mat-list-item>
+                      <mat-list-item>
+                        <div matListItemTitle>  <strong>  Alias </strong> </div>
+                        <mat-icon matListItemIcon>label</mat-icon>
+                        <div matListItemLine>{{device?.alias || '??'}}</div>
+                      </mat-list-item>
+                      <mat-list-item>
+                        <div matListItemTitle>  <strong>  MAC </strong> </div>
+                        <mat-icon matListItemIcon>fingerprint</mat-icon>
+                        <div matListItemLine>{{device?.macid || '??'}}</div>
+                      </mat-list-item>
+                      <mat-list-item>
+                        <div matListItemTitle>  <strong>  Versión Firmware </strong> </div>
+                        <mat-icon matListItemIcon>code</mat-icon>
+                        <div matListItemLine>{{device?.fwVersion || '??'}}</div>
+                      </mat-list-item>
+                    </mat-list>
+                  </div>
+
+                  <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                    <mat-list >
+                      <mat-list-item>
+                        <div matListItemTitle>  <strong>  Versión Harware </strong> </div>
+                        <mat-icon matListItemIcon>build</mat-icon>
+                        <div matListItemLine>{{device?.hwVersion || '??'}}</div>
+                      </mat-list-item>
+                      <mat-list-item>
+                        <div matListItemTitle>  <strong>  Estado </strong> </div>
+                        <mat-icon  matListItemIcon *ngIf="device?.state" class="col-green">check_circle</mat-icon>
+                        <mat-icon  matListItemIcon *ngIf="!device?.state" class="col-grey">lens</mat-icon>
+                        <div matListItemLine *ngIf="device?.state === null">??</div>
+                        <div matListItemLine *ngIf="device?.state !== null">{{(device?.state)?'Activo':'No activo'}}</div>
+                      </mat-list-item>
+                      <mat-list-item>
+                        <div matListItemTitle>  <strong>  Asignado </strong> </div>
+                        <mat-icon  matListItemIcon *ngIf="device?.assigned" class="col-green">check_circle</mat-icon>
+                        <mat-icon  matListItemIcon *ngIf="!device?.assigned" class="col-grey">lens</mat-icon>
+                        <div matListItemLine *ngIf="device?.assigned === null">??</div>
+                        <div matListItemLine *ngIf="device?.assigned !== null">{{(device?.assigned)?'Si':'No'}}</div>
+                      </mat-list-item>
+                      <mat-list-item>
+                        <mat-icon matListItemIcon>watch_later</mat-icon>
+                        <div matListItemTitle>  <strong>  Creado a las </strong> </div>
+                        <div matListItemLine> {{(device?.createdAt | date:'medium') || '??'}}</div>
+                      </mat-list-item>
+                      <mat-list-item>
+                        <mat-icon matListItemIcon>watch_later</mat-icon>
+                        <div matListItemTitle>  <strong>  Actualizado a las </strong> </div>
+                        <div matListItemLine> {{(device?.updatedAt | date:'medium') || '??'}}</div>
+                      </mat-list-item>
+                    </mat-list>
+                  </div>
+                </div>
+
+              </mat-card-content>
+            </mat-card>
+          </div>
+
+          <!-- Caja de acciones -->
+          <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+            <mat-card appearance="outlined" >
+              <mat-card-header class="card-container center">
+                <mat-card-title> <strong> Acciones </strong> </mat-card-title>
+              </mat-card-header>
+              <mat-card-actions class="card-container center">
+                <mat-list>
+                  <mat-list-item>
+                    <button type="button" class="my_btn btn btn-outline-success btn-border-radius mr-2">Reiniciar</button>
+                  </mat-list-item>
+                  <mat-list-item>
+                    <button type="button" class="my_btn btn btn-outline-danger btn-border-radius mr-2">Borrar Flash</button>
+                  </mat-list-item>
+                  <mat-list-item>
+                    <button type="button" class="my_btn btn btn-outline-warning btn-border-radius mr-2">Probar comunicación</button>
+                  </mat-list-item>
+                  <mat-list-item>
+                    <button mat-button
+                            matTooltip="Ver Dispositivo"
+                            matTooltipClass="example-tooltip-red"
+                            aria-label=""
+                            (click)="reviewDevice()">
+                      <mat-icon class="col-green">remove_red_eye</mat-icon>
+                    </button>
+                    <button mat-button
+                            matTooltip="Editar Dispositivo"
+                            matTooltipClass="example-tooltip-red"
+                            aria-label=""
+                            (click)="editDevice()">
+                      <mat-icon class="col-blue">mode_edit</mat-icon>
+                    </button>
+                    <button mat-button
+                            matTooltip="Borrar Dispositivo"
+                            matTooltipClass="example-tooltip-red"
+                            aria-label=""
+                            (click)="deleteDevice()">
+                      <mat-icon class="col-red">delete</mat-icon>
+                    </button>
+                    <!-- <button mat-button
+                            matTooltip="Nuevo Firmware"
+                            matTooltipClass="example-tooltip-red"
+                            aria-label=""
+                            (click)="newFirmwareDevice()">
+                      <mat-icon class="col-yellow ">code</mat-icon>
+                    </button> -->
+                  </mat-list-item>
+                </mat-list>
+
+              </mat-card-actions>
+            </mat-card>
+          </div>
+        </div>
+
+        <div class="row justify-content-center m-l-5 m-t-5">
+          <!-- Caja de MQTT -->
+          <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+            <mat-card appearance="outlined" >
+              <mat-card-header class="card-container center">
+                <mat-card-title> <strong> MQTT </strong> </mat-card-title>
+              </mat-card-header>
+              <mat-card-actions class="card-container ">
+
+                <div class="row">
+                  <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                    <mat-list>
+                      <mat-list-item>
+                        <mat-icon matListItemIcon>face</mat-icon>
+                        <div matListItemTitle>  <strong>  Usuario </strong> </div>
+                        <div matListItemLine>{{(mqttData?.username ) || '??'}}</div>
+                      </mat-list-item>
+                      <mat-list-item>
+                        <div matListItemTitle>  <strong>  Contraseña </strong> </div>
+                        <mat-icon matListItemIcon>vpn_key</mat-icon>
+                        <div matListItemLine>{{(mqttData?.password) || '??'}}</div>
+                      </mat-list-item>
+                      <mat-list-item>
+                        <div matListItemTitle>  <strong>  Tópico </strong> </div>
+                        <mat-icon matListItemIcon>location_city</mat-icon>
+                        <div matListItemLine>{{(mqttData?.topic) || '??'}}</div>
+                      </mat-list-item>
+                      <mat-list-item>
+                        <div matListItemTitle>  <strong>  Nivel de Acceso </strong> </div>
+                        <mat-icon matListItemIcon>security</mat-icon>
+                        <div matListItemLine>{{mqttData?.access || '??'}}</div>
+                      </mat-list-item>
+                      <mat-list-item>
+                        <div matListItemTitle>  <strong>  Habilitado </strong> </div>
+                        <mat-icon  matListItemIcon *ngIf="mqttData?.allow" class="col-green">check_circle</mat-icon>
+                        <mat-icon  matListItemIcon *ngIf="!mqttData?.allow" class="col-grey">lens</mat-icon>
+                        <div matListItemLine *ngIf="mqttData?.allow === null">??</div>
+                        <div matListItemLine *ngIf="mqttData?.allow !== null">{{(mqttData?.allow)?'Sí':'No'}}</div>
+                      </mat-list-item>
+                      <mat-list-item>
+                        <div matListItemTitle>  <strong>  IP </strong> </div>
+                        <mat-icon matListItemIcon>router</mat-icon>
+                        <div matListItemLine>{{(mqttData?.ip) || '??'}}</div>
+                      </mat-list-item>
+                    </mat-list>
+                  </div>
+                  <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                    <mat-list>
+                      <mat-list-item>
+                        <div matListItemTitle>  <strong>  Ubicación </strong> </div>
+                        <mat-icon matListItemIcon>location_on</mat-icon>
+                        <div matListItemLine> <strong>Pais:</strong> {{(mqttData?.location?.country  ) || '??'}}</div>
+                        <div matListItemLine> <strong>Region:</strong> {{(mqttData?.location?.region  ) || '??'}}</div>
+                        <div matListItemLine> <strong>Zona:</strong> {{(mqttData?.location?.timezone  ) || '??'}}</div>
+                        <div matListItemLine> <strong>Ciudad:</strong> {{(mqttData?.location?.city  ) || '??'}}</div>
+                        <div matListItemLine class="scroll"> <strong>Lat,Long:</strong> {{mqttData?.location?.ll || 0}}</div>
+                      </mat-list-item>
+                      <mat-list-item>
+                        <mat-icon matListItemIcon>watch_later</mat-icon>
+                        <div matListItemTitle>  <strong>  Conectado a las </strong> </div>
+                        <div matListItemLine> {{(mqttData?.connectedAt | date:'medium') || '??'}}</div>
+                      </mat-list-item>
+                      <mat-list-item>
+                        <div matListItemTitle>  <strong>  Trasferencia en Bytes </strong> </div>
+                        <mat-icon matListItemIcon>compare_arrows</mat-icon>
+                        <div matListItemLine> <strong> Enviados: </strong> {{(mqttData?.transfer_bytes?.send ) || 0}}</div>
+                        <div matListItemLine> <strong> Recibidos: </strong> {{(mqttData?.transfer_bytes?.recv ) || 0}}</div>
+                      </mat-list-item>
+                      <mat-list-item>
+                        <div matListItemTitle>  <strong>  Mensajes </strong> </div>
+                        <mat-icon matListItemIcon>compare_arrows</mat-icon>
+                        <div matListItemLine> <strong> Enviados: </strong> {{(mqttData?.transfer_msgs?.send  ) || 0}}</div>
+                        <div matListItemLine> <strong> Recibidos: </strong>{{(mqttData?.transfer_msgs?.recv) || 0 }}</div>
+                      </mat-list-item>
+                    </mat-list>
+                  </div>
+                </div>
+              </mat-card-actions>
+            </mat-card>
+          </div>
+          <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+

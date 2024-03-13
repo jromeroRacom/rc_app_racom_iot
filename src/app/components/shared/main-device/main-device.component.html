@@ -1,0 +1,22 @@
+<div class="row clearfix justify-content-md-center" *ngIf="error">
+  <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+    <div class="box-part text-center">
+      <i class="fa-3x col-blue" [ngClass]="[errorIcon]"></i>
+      <div class="title p-t-15 mb-3">
+        <h3>{{errorTitle}}</h3>
+      </div>
+      <div class="text p-b-10">
+        <span>{{errorMsg}}</span>
+      </div>
+      <div class="text p-b-10">
+        <span class="feedLblStyle lblTaskStyle">#Ref: {{errorRef}} </span>
+      </div>
+      <div class="text p-b-10 clearfix">
+        <div class="alert alert-danger" *ngFor="let error of listErrors">
+          <strong>{{error.msg}}</strong>
+        </div>
+      </div>
+      <a href="http://www.racom.com.mx/SistemasHidraulicos/Contacto.php" target="_blank">¿Necesitas ayuda?</a>
+    </div>
+  </div>
+</div>

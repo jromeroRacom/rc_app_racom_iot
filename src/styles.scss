@@ -1,0 +1,283 @@
+/* You can add global styles to this file, and also import other style files */
+.mat-mdc-dialog {
+  overflow-x: hidden  !important;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.dark {
+  mat-toolbar {
+    background: #1a202e;
+    color: #fff;
+    box-shadow: 0 0.46875rem 2.1875rem rgba(90, 97, 105, 0.1),
+      0 0.9375rem 1.40625rem rgba(90, 97, 105, 0.1),
+      0 0.25rem 0.53125rem rgba(90, 97, 105, 0.12),
+      0 0.125rem 0.1875rem rgba(90, 97, 105, 0.1);
+  }
+
+  .my-info-box{
+    background: #12161f !important;
+    color:  #96a2b4 !important;
+  }
+  .menu-box, .menu-box-movil{
+    background: #12161f !important;
+    color:  #96a2b4 !important;
+
+    p, span{
+      color: #fff !important;
+    }
+  }
+
+  mat-form-field {
+    mat-label {
+      color: #96a2b4;
+    }
+
+
+    input[disabled] {
+      cursor: not-allowed;
+    }
+  }
+}
+
+.boxshadow{
+  box-shadow: 2px 2px 10px #003961;
+  margin: 5px 0px 5px 0px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  transition: 0.3s linear all;
+}
+
+.my-info-box {
+  box-shadow: 2px 2px 10px #dadada;
+  margin: 5px 0px 5px 0px;
+  padding: 20px 10px;
+  background-color: #ffffff;
+  height: 100px;
+  border-radius: 5px;
+  transition: 0.3s linear all;
+
+  &:hover {
+    //Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+    box-shadow: 4px 4px 20px #dadada;
+    //Instead of the line below you could use @include transition($transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8, $transition-9, $transition-10)
+    transition: 0.3s linear all;
+  }
+  &.basic {
+    background-color: #fff;
+    color: #555
+  }
+  &.primary {
+    background-color: #007bff;
+    color: #fff;
+  }
+  &.danger {
+    background-color: #ef5350;
+    color: #fff;
+  }
+  &.success {
+    background-color: #66bb6a;
+    color: #fff;
+  }
+  &.info {
+    background-color: #26c6da;
+    color: #fff;
+  }
+  &.warning {
+    background-color: #E0A800;
+    color: #fff;
+  }
+  i {
+    font-size: 5em;
+    opacity: 1;
+  }
+  .box-title {
+    position: absolute;
+    right: 30px;
+    top: 20px;
+    font-size: 32px;
+    display: block;
+  }
+
+  .box-title2 {
+    position: absolute;
+    // right: 23px;
+    top: 33px;
+    font-size: 32px;
+    display: block;
+  }
+
+  .box-subtitle {
+    position: absolute;
+    right: 60%;
+    top: 20px;
+    font-size: 18px;
+    display: block;
+    i {
+      font-size: 1em;
+      display: inline;
+    }
+  }
+
+  .box-data{
+    &.action {
+      cursor: pointer;
+    }
+    position: absolute;
+    right: 30px;
+    top: 65px;
+    font-style: italic;
+    text-transform: capitalize;
+    opacity: 0.7;
+    display: block;
+    font-size: 20px;
+  }
+
+  .box-gauge{
+    position: absolute;
+    // left: 18px;
+    right: 18px;
+    top: 15px;
+    display: block;
+  }
+
+  .box-action{
+    &:hover {
+      opacity: 0.4;
+      cursor: pointer;
+    }
+  }
+
+  .box-error{
+    position: absolute;
+    right: 35px;
+    top: 65px;
+    font-style: italic;
+    text-transform: capitalize;
+    opacity: 0.5;
+    display: block;
+    font-size: 18px;
+    cursor: default;
+    color: red;
+  }
+}
+
+.center-table-header {
+  flex-direction: column;
+  justify-content: center;
+}
+
+.center-table-cell {
+  text-align: center;
+  justify-content:center;
+}
+
+.card-container {
+  /* needed styles below */
+  display: flex;
+
+  &.center{
+    justify-content: center;
+  }
+
+  &.between{
+    justify-content: space-between;
+  }
+
+  &.around{
+    justify-content: space-around;
+  }
+
+}
+.example-tooltip-red {
+  background: #b71c1c;
+}
+
+/* body support all */
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+div.container
+{
+    display: flex;
+    margin-top: 60px;
+    margin-bottom: 120px;
+}
+div.container > div
+{
+    flex: 1 1 5em;
+    margin-left: 10px;
+    // height: 800px;
+}
+div.container > div:first-child
+{
+    margin-left: 0;
+}
+div.container > div.one
+{
+    flex:2 1 calc(20em + 10px);
+}
+
+/* footer support all */
+div.container-footer
+{
+    display: flex;
+    margin-bottom: 10px;
+}
+div.container-footer > div
+{
+    flex: 1 1 5em;
+    margin-left: 0px;
+    // height: 12em;
+    background-color: #3f51b5;
+}
+div.container-footer > div:first-child
+{
+    margin-left: 0;
+}
+div.container-footer > div.two
+{
+    flex:2 2 calc(50em + 10px);
+}
+.foo{
+  color: #f7f7f7;
+  text-align: center;
+  font-size: 1em;
+}
+
+/* footer redes social */
+.container-social{
+  display: flex;
+  margin-bottom: 10px;
+  justify-content: center;
+}
+div.container-social > div
+{
+    flex: 0 0 0em;
+    margin-left: 5px;
+    background-color: #3f51b5;
+}
+div.container-social > div:first-child
+{
+    margin-left: 0;
+}
+
+/* footer Dirección terminos y condiciones */
+div.container-direc
+{
+    display: flex;
+    margin-bottom: 5px;
+    font-size: 1em;
+}
+div.container-direc > div
+{
+    flex: 1 1 5em;
+    margin-left: 5px;
+}
+div.container-direc > div:first-child
+{
+    margin-left: 0;
+}

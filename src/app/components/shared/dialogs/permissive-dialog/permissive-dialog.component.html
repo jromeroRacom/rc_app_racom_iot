@@ -1,0 +1,67 @@
+<div class="">
+
+
+  <div mat-dialog-content class="mat-mdc-dialog">
+
+    <div class="mt-0 mb-3">
+      <div class="font-weight-bold p-t-5 p-l-10 font-17" style="text-align: center;">
+        <h3>{{data.title || 'Eliminar'}}</h3>
+        <i class="fas fa-eraser fa-4x col-red animate__animated animate__zoomIn"></i>
+      </div>
+    </div>
+
+    <div class="row  justify-content-center">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+        <div style="text-align: center;" class="">
+
+          <p><strong>Para borra es necesario tu contraseña y escribir la leyenda
+            <span style="color: red;"> "{{data.code}}"</span> en el campo de codígo</strong></p>
+
+          <form class="m-4" [formGroup]="deleteForm" (ngSubmit)="onSubmit()">
+
+            <div class="row">
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                <div class="form-group auth-form-group mb-4">
+                  <mat-icon matSuffix (click)="hide = !hide" class="auth-page-icon">
+                    {{hide ? 'visibility_off' : 'visibility'}}
+                  </mat-icon>
+                  <input type="text" formControlName="password" class="form-control auth-control"
+                    id="password" [type]="hide ? 'password' : 'text'" required autocomplete="current-password"
+                    [ngClass]="{ 'is-invalid':  formValidators.fieldValidate('password') }"
+                    placeholder="Contraseña" />
+                  <div *ngIf="formValidators.fieldValidate('password')" class="invalid-feedback">
+                    <div >{{formValidators.getError('password')}}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                <div class="form-group auth-form-group mb-4">
+                  <mat-icon matSuffix class="auth-page-icon">security</mat-icon>
+                  <input type="text" formControlName="code" class="form-control auth-control" required
+                    id="code" [ngClass]="{ 'is-invalid': formValidators.fieldValidate('code') }"
+                    placeholder="Código" />
+                  <div *ngIf="formValidators.fieldValidate('code') " class="invalid-feedback">
+                    <div>No válido</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="row justify-content-center">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+        <div class="" style="text-align:center;">
+          <button mat-raised-button color="primary" [disabled]="deleteForm.invalid" [mat-dialog-close]="deleteForm">Aceptar</button>
+          <button mat-raised-button class="ml-3" color="warn" (click)="onNoClick()" tabindex="-1">Cancelar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

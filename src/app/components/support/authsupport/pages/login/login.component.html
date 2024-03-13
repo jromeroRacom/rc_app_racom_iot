@@ -1,0 +1,45 @@
+<form class="styForm"
+      action=""
+      autocomplete="off"
+      [formGroup]="myform"
+      (ngSubmit)="login()">
+
+  <!--email-->
+  <mat-form-field appearance="fill">
+
+    <mat-label>Enter your email</mat-label>
+    <input matInput
+          placeholder="pat@example.com"
+          type="email"
+          formControlName="email"
+          required>
+  </mat-form-field>
+  <br>
+
+  <!--Password-->
+  <mat-form-field appearance="fill">
+
+    <mat-label>Enter your password</mat-label>
+    <input matInput
+           type="password"
+           formControlName="password">
+  </mat-form-field>
+      <br>
+      <button mat-raised-button
+              type="submit"
+              extended
+              color="primary"
+              [disabled]="myform.invalid">
+              login
+      </button>
+    <!-- <div>
+      <span class="form-text">
+        ¿No tienes cuenta?
+      </span>
+
+      <a routerLink="/support/auth/registro">
+        Crear una aquí
+      </a>
+    </div> -->
+</form>
+

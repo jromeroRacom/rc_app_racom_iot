@@ -1,0 +1,111 @@
+<section class="content">
+  <div class="container-fluid">
+    <mat-toolbar>
+      <span class="spacer"></span>
+      <h2 class="mt-1"> <span><i class="ti-home"></i></span> Inicio </h2>
+    </mat-toolbar>
+    <hr>
+
+    <owl-carousel-o [options]="customOptions">
+
+      <ng-container *ngFor="let slide of slidesStore">
+        <ng-template carouselSlide [id]="slide.id">
+          <img [src]="slide.src" [alt]="slide.alt" [title]="slide.title">
+          <a [href]="slide.externalUrl" target="_blank">{{slide.externalMsg}}</a>
+          <a [routerLink]="slide.internalUrl">{{slide.internalMsg}}</a>
+        </ng-template>
+      </ng-container>
+
+    </owl-carousel-o>
+
+    <div class="row clearfix">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="card">
+          <div class="header">
+            <h2> <strong>Menú</strong></h2>
+          </div>
+          <div class="body">
+            <div class="row justify-content-lg-center" *ngIf="!isMobile">
+              <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                <a (click)="logicGetDevices()" class="menu-box orange">
+                  <div class="overlay"></div>
+                  <div class="circle">
+                    <i class="fas fa-cog fa-5x"></i>
+                  </div>
+                  <p>Ver Dispositivos</p>
+                </a>
+              </div>
+
+              <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                <a (click)="addNew()" class="menu-box purple">
+                  <div class="overlay"></div>
+                  <div class="circle">
+                    <i class="fas fa-microchip fa-5x"></i>
+                  </div>
+                  <p>Agregar Dispositivo</p>
+                </a>
+              </div>
+
+              <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                <a href="#" routerLink="/app/account" class="menu-box green">
+                  <div class="overlay"></div>
+                  <div class="circle">
+                    <i class="fas fa-user-alt fa-5x"></i>
+                  </div>
+                  <p>Mi Cuenta</p>
+                </a>
+              </div>
+            </div>
+
+            <div class="row justify-content-lg-center clearfix" *ngIf="isMobile">
+              <div class="col-lg-6 col-md-6 col-sm-11 col-xs-11">
+                <a (click)="logicGetDevices()" class="menu-box-movil orange">
+                  <div class="overlay2"></div>
+                  <div class="circle">
+                    <i class="fas fa-cog fa-3x"></i>
+                  </div>
+                  <span class="title-one medium">Ver</span>
+                  <span class="title-two medium">Dispositivos</span>
+                </a>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-11 col-xs-11">
+                <a (click)="addNew()" class="menu-box-movil purple">
+                  <div class="overlay2"></div>
+                  <div class="circle">
+                    <i class="fas fas fa-microchip fa-3x"></i>
+                  </div>
+                  <span class="title-one medium">Agregar</span>
+                  <span class="title-two medium">Dispositivo</span>
+                </a>
+              </div>
+
+              <div class="col-lg-6 col-md-6 col-sm-11 col-xs-11">
+                <a routerLink="/app/account" class="menu-box-movil green">
+                  <div class="overlay2"></div>
+                  <div class="circle">
+                    <i class="fas fa-user-alt fa-3x"></i>
+                  </div>
+                  <span class="title-only medium">Mi cuenta</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row clearfix m-b-20">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="card">
+          <div class="header">
+            <h2> <strong>Aviso de Privacidad</strong></h2>
+          </div>
+          <div class="body">
+            <p>Te sugerimos leer nuestro <a href="https://racom.com.mx/content/3-terminos-y-condiciones-de-uso" target="_blank">aviso de privacidad.</a> </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>

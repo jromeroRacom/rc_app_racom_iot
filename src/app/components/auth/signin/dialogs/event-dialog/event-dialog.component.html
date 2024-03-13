@@ -1,0 +1,29 @@
+<div class="">
+
+
+  <div mat-dialog-content class="mat-mdc-dialog">
+
+    <div class="mt-0 mb-3">
+      <div class="font-weight-bold p-t-5 p-l-10 font-17" style="text-align: center;">
+        <h3>La sessión fue cerrada</h3>
+        <i class="{{data.icon}} fa-4x col-blue animate__animated animate__zoomIn"></i>
+      </div>
+    </div>
+
+    <div class="row  justify-content-center">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+        <div style="text-align: center;" class="">
+          <p><strong>{{data.msg}}</strong></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="row justify-content-center">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+        <div class="" style="text-align:center;">
+          <button mat-raised-button color='primary' [mat-dialog-close]="1">Entendido</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

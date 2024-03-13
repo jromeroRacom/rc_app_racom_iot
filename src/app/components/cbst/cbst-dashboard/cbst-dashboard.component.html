@@ -1,0 +1,216 @@
+<!---------------------  Fila Uno  --------------------------->
+<div class="row ml-3 mr-3 mb-0 mt-5 justify-content-md-center">
+  <!-- Dispositivo -->
+  <div class="col-lg-10 col-md-10 col-sm-12">
+    <div class="card-inner boxshadow">
+      <div class="alert alert-danger" style="text-align: center;" *ngFor="let error of deviceErrors">
+        <strong>
+          <mat-icon class="mat-16" style="position: relative; top:5px">warning</mat-icon> Error
+        </strong>
+        {{error}}.
+      </div>
+      <span style="font-size: 28px; display: block;" class="m-b-5 m-t-5">Dispositivo ({{deviceConfig?.device?.alias ||
+        '??'}})</span>
+      <div class="row justify-content-center mb-2">
+        <div class="col-sm-2 col-block">
+          <label class="font-15">UID</label>
+          <h4>
+            <span class="box-data badge">{{(deviceConfig?.device?.serial | uppercase) || '??'}}</span>
+          </h4>
+        </div>
+        <div class="col-sm-2 col-block">
+          <label class="font-15">Tipo</label>
+          <h4>
+            <span class="box-data badge">{{(deviceConfig?.device?.type | uppercase) || '??'}}</span>
+          </h4>
+        </div>
+        <div class="col-sm-2 col-block">
+          <label class="font-15">WiFi</label>
+          <h4> {{ deviceData?.ssid|| '??' }}</h4>
+        </div>
+
+        <div class="col-sm-2 col-block">
+          <label class="font-15">Calidad</label>
+          <h4>
+            <span [ngClass]="getWiFiSignalClass" class="box-data badge">{{getWiFiSignalText || '??'}}</span>
+          </h4>
+        </div>
+
+        <div class="col-sm-2 col-block justify-content-center">
+          <label class="font-15">Actualizado</label>
+          <h4>{{timestamp | date :'short'}}</h4>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!---------------------  Fila Dos  --------------------------->
+
+<div class="row ml-3 mr-3 justify-content-md-center">
+  <!-- Tinaco -->
+      <div class="col-lg-3 col-md-3 col-sm-12">
+        <div class="card-inner boxshadow">
+          <span style="font-size: 32px; display: block;" class="m-b-5">Tinaco</span>
+          <div class="row justify-content-center mb-2">
+            <div class="col col-block">
+              <h4>
+                <span [ngClass]="getTankClassLabel" class="pull-center progress-percent label m-b-5">
+                  {{ getTankText}}
+                </span>
+              </h4>
+            </div>
+          </div>
+        </div>
+      </div>
+  <!-- Cisterna -->
+      <div class="col-lg-3 col-md-3 col-sm-12">
+        <div class="card-inner boxshadow">
+          <span style="font-size: 32px; display: block;" class="m-b-5">Cisterna</span>
+          <div class="row justify-content-center mb-2">
+            <div class="col col-block">
+              <h4>
+                <span [ngClass]="getCisternClassLabel" class="pull-center progress-percent label  m-b-5">
+                  {{getCisternText}}
+                </span>
+              </h4>
+            </div>
+          </div>
+        </div>
+      </div>
+</div>
+<!---------------------  Fila Tres  --------------------------->
+<div class="row ml-3 mr-3 mb-0 justify-content-md-center">
+
+  <div class="col-lg-5 col-md-5 col-sm-12">
+    <div class="card-inner boxshadow">
+      <!-- Titulo -->
+      <span style="font-size: 35px; display: block;" class="m-b-5">Modo</span>
+      <div class="row justify-content-center mb-2">
+        <div class="col col-block">
+      <!-- Datos -->
+      <span *ngIf="!flagErrorMode" class="box-data action badge" [ngClass]="{
+        'col-green': deviceData?.m===2, 'col-orange': deviceData?.m===1, 'col-red': deviceData?.m===0}">
+        {{getModeText}}</span>
+
+      <!-- Datos al Error -->
+      <span class="box-error" *ngIf="flagErrorMode" (click)="flagErrorMode=false"
+        matTooltip="El dispositivo no realizó la acción" matTooltipPosition="above">Hubo un
+        error.
+      </span>
+        </div>
+        <div class="col col-block">
+                <!-- Loading -->
+      <div class="preloader pl-size-l ml-2" *ngIf="modeExpected">
+        <div class="spinner-layer pl-indigo">
+          <div class="circle-clipper left">
+            <div class="circle"></div>
+          </div>
+          <div class="circle-clipper right">
+            <div class="circle"></div>
+          </div>
+        </div>
+
+      </div>
+      <!-- Icono principal -->
+      <mat-list role="list"  *ngIf="!modeExpected && !flagErrorMode">
+        <div class="col col-block">
+          <div class="example-button-row">
+            <mat-list-item role="listitem">
+              <button (click)="changeModeState(2)"  mat-stroked-button *ngIf="deviceData?.m != 2">
+                <mat-icon style="color:green" *ngIf="deviceData?.m != 2">lens</mat-icon>
+                Automático
+              </button>
+              <button (click)="changeModeState(2)"
+              class="box-data action badge"
+              [ngClass]="{ 'col-green': deviceData?.m===2}"
+              *ngIf="deviceData?.m === 2">
+                    <mat-icon style="color:green" *ngIf="deviceData?.m === 2">check_circle</mat-icon>
+                    Automático
+              </button>
+            </mat-list-item>
+            <mat-list-item role="listitem">
+              <button (click)="changeModeState(1)" mat-stroked-button *ngIf="deviceData?.m != 1">
+                <mat-icon style="color:orange" *ngIf="deviceData?.m != 1">lens</mat-icon>
+                Manual
+              </button>
+              <button (click)="changeModeState(1)"
+              class="box-data action badge"
+              [ngClass]="{ 'col-orange': deviceData?.m===1}"
+              *ngIf="deviceData?.m === 1">
+                <mat-icon style="color:orange" *ngIf="deviceData?.m === 1">check_circle</mat-icon>
+                Manual
+              </button>
+            </mat-list-item>
+            <mat-list-item>
+              <button (click)="changeModeState(0)" mat-stroked-button *ngIf="deviceData?.m != 0">
+                <mat-icon style="color:red" *ngIf="deviceData?.m != 0">lens</mat-icon>
+                Fuera
+              </button>
+              <button (click)="changeModeState(0)"
+              class="box-data action badge"
+              [ngClass]="{ 'col-red': deviceData?.m===0}"
+              *ngIf="deviceData?.m === 0">
+                <mat-icon style="color:red" *ngIf="deviceData?.m === 0">check_circle</mat-icon>
+                Fuera
+              </button>
+            </mat-list-item>
+          </div>
+        </div>
+      </mat-list>
+      <!-- Icono Error -->
+      <i class="fas fa-exclamation col-yellow ml-4" style="cursor:pointer;" matTooltip="Click para aceptar"
+        *ngIf="flagErrorMode" (click)="flagErrorMode=false">
+      </i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+      <!-- Voltaje -->
+    <div class="col-lg-3 col-md-3 col-sm-12">
+      <div class="card-inner boxshadow">
+        <span style="font-size: 32px; display: block;" class="m-b-5">Voltaje</span>
+        <div class="row justify-content-center mb-2">
+          <div class="col col-block">
+             <ngx-gauge class="mb-5" [min]=0 [max]=250 [cap]="'round'" [thick]=10 [size]=138 [type]="'arch'"
+                [value]="deviceData?.v || 0" label="Voltaje" [foregroundColor]="getColorVoltage" backgroundColor="#f2f2f2"
+                append="V">
+             </ngx-gauge>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+<!---------------------  Fila Cuatro  --------------------------->
+
+<div class="row ml-3 mr-3 mb-0 justify-content-md-center">
+  <!-- Bomba -->
+  <div class="col-lg-8 col-md-8 col-sm-12">
+    <div class="card-inner boxshadow">
+      <span style="font-size: 28px; display: block;" class="m-b-5">Bomba</span>
+      <div class="row justify-content-center mb-2">
+        <div class="col-sm-3 col-block">
+          <label class="font-15">Estatus</label>
+          <h4>
+            <span class="box-data badge" [ngClass]="getPumpClass">{{getPumpText}}</span>
+          </h4>
+        </div>
+        <div class="col-sm-3 col-block">
+          <label class="font-15">Arranques</label>
+          <h4><i class="material-icons col-green">power</i> {{ (deviceData?.s !==undefined) ? deviceData?.s : '??'}}
+          </h4>
+        </div>
+        <div class="col-sm-3 col-block">
+          <label class="font-15">Tiempo Operando</label>
+          <h4> <i class="material-icons col-orange">timer</i> {{deviceData?.h || '??'}}</h4>
+          <div style="display: flex; flex-direction: column; justify-content: end;" >
+          <label style="margin-left: 2.5rem;" class="font-13">h - min - s</label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

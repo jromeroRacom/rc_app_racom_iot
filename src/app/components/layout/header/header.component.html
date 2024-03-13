@@ -1,0 +1,130 @@
+<nav #navbar class="navbar">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a href="#" onClick="return false;" class="navbar-toggle collapsed"
+        (click)="isNavbarCollapsed = !isNavbarCollapsed" aria-expanded="false"></a>
+      <a href="#" onClick="return false;" class="bars" (click)="mobileMenuSidebarOpen($event,'overlay-open')"></a>
+      <a class="navbar-brand" routerLink="/app/home">
+        <img src="assets/images/logo.ico" alt="" />
+        <span class="logo-name">Racom IoT</span>
+      </a>
+    </div>
+    <div class="collapse navbar-collapse" [ngbCollapse]="isNavbarCollapsed">
+      <ul class="pull-left collapse-menu-icon">
+        <li>
+          <button mat-button (click)="callSidemenuCollapse()" class="sidemenu-collapse">
+            <i class="nav-hdr-btn ti-align-left"></i>
+          </button>
+        </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <!-- Full Screen Button -->
+        <li class="fullscreen">
+          <button mat-button (click)="callFullscreen()" class=" nav-notification-icons">
+            <i class="nav-hdr-btn icon-screen-desktop"></i>
+          </button>
+        </li>
+
+         <!-- #START# idioma-->
+        <!-- <li class="nav-item" ngbDropdown>
+          <a ngbDropdownToggle class="lang-dropdown">
+            <img *ngIf="flagvalue !== undefined" src="{{flagvalue}}" height="16"> <span
+              class="country-name">{{countryName}}</span>
+            <img *ngIf="flagvalue === undefined" src="{{defaultFlag}}" height="16">
+            <span *ngIf="flagvalue === undefined" class="country-name">English</span>
+          </a>
+          <div ngbDropdownMenu class="dropdown-menu lang-item dropdown-menu-right pullDown">
+            <a href="javascript:void(0);" class="dropdown-item lang-item-list" *ngFor="let item of listLang"
+              (click)="setLanguage(item.text, item.lang, item.flag)"
+              [ngClass]="{'active': langStoreValue === item.lang}">
+              <img src="{{item.flag}}" class="flag-img" height="12"> <span class="align-middle">{{item.text}}</span>
+            </a>
+          </div>
+        </li> -->
+         <!-- #END# Idioma-->
+
+         <!-- #START# Notifications-->
+        <li class="nav-item" ngbDropdown *ngIf="flagNewNotification">
+          <button mat-button ngbDropdownToggle class="nav-notification-icons">
+            <i class="nav-hdr-btn ti-bell"></i>
+            <span class="notify"></span>
+            <span class="heartbeat"></span>
+          </button>
+          <div ngbDropdownMenu class="notification-dropdown pullDown">
+            <div class="noti-list" style="position: relative; max-width: 600px; max-height: 250px;" [perfectScrollbar]>
+              <ul class="menu">
+                <li>
+                  <a href="#" *ngFor="let notification of notifications" onClick="return false;">
+                    <span class="table-img msg-user">
+                      <img src="{{notification.userImg}}" alt="">
+                    </span>
+                    <span class="menu-info">
+                      <span class="menu-title">{{notification.userName}}</span>
+                      <span class="menu-desc">
+                        <i class="material-icons">access_time</i> {{notification.time}}
+                      </span>
+                      <span class="menu-desc">{{notification.message}}</span>
+                    </span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <a class="text-center d-block border-top py-1" href="#" onClick="return false;">Read
+              All Notifications</a>
+          </div>
+        </li>
+        <!-- #END# Notifications-->
+
+
+        <li class="nav-item user_profile" ngbDropdown>
+          <button mat-button onClick="return false;" ngbDropdownToggle role="button" class="nav-notification-icons">
+            <i class="nav-hdr-btn icon-question"></i>
+          </button>
+
+          <div ngbDropdownMenu class="notification-dropdown pullDown">
+            <div class="noti-list" style="position: relative; max-width: 600px; max-height: 300px;" [perfectScrollbar]>
+              <ul class="menu">
+                <li class="body">
+                  <ul class="user_dw_menu">
+                    <li>
+                      <a href="#" routerLink="/app/account">
+                        <mat-icon aria-hidden="false" class="mr-2 icon-user"></mat-icon>&nbsp;Mi cuenta
+                      </a>
+                    </li>
+                    <li>
+                      <a href="https://racom.com.mx/" target="_blank">
+                        <mat-icon aria-hidden="false"  class="mr-2  icon-basket-loaded"></mat-icon>&nbsp;Más Productos
+                      </a>
+                    </li>
+                    <li>
+                      <a href="https://racom.com.mx/content/11-contacto" target="_blank">
+                        <mat-icon aria-hidden="false" class="mr-2  icon-question"></mat-icon>&nbsp;Ayuda
+                      </a>
+                    </li>
+                    <li>
+                      <a href="https://racom.com.mx/content/3-terminos-y-condiciones-de-uso" target="_blank">
+                        <mat-icon aria-hidden="false" class="mr-2  icon-info"></mat-icon>&nbsp;Aviso de Privacidad
+                      </a>
+                    </li>
+                    <li>
+                      <a routerLink="/auth/signin">
+                        <mat-icon aria-hidden="false" class="mr-2 icon-power"></mat-icon>&nbsp;Salir
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </li>
+        <!-- #END# Tasks -->
+
+        <li class="pull-right">
+          <button mat-button (click)="toggleRightSidebar()" class="nav-notification-icons">
+            <i class="nav-hdr-btn ti-paint-roller" id="settingBtn"></i>
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>>

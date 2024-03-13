@@ -1,0 +1,26 @@
+[
+  {
+    "id": "image1",
+    "title": "IoT Racom",
+    "src": "assets/images/main-carousel/04.png",
+    "alt": "Imagen 1"
+  },
+  {
+    "id": "image2",
+    "title": "Controles",
+    "src": "assets/images/main-carousel/01.png",
+    "alt": "Imagen 1"
+  },
+  {
+    "id": "image3",
+    "title": "Tableros",
+    "src": "assets/images/main-carousel/02.png",
+    "alt": "Imagen 1"
+  },
+  {
+    "id": "image4",
+    "title": "Racom Connect",
+    "src": "assets/images/main-carousel/03.png",
+    "alt": "Imagen 1"
+  }
+]

@@ -1,0 +1,82 @@
+<section class="content">
+  <div class="container-fluid">
+
+    <mat-toolbar>
+      <button mat-icon-button (click)="backClicked()">
+        <mat-icon class="mat-18">arrow_back</mat-icon>
+      </button>
+      <span class="spacer"></span>
+      <h2 class="mt-1">
+        <span mat-icon-button><i class="ti-settings"></i></span>
+        <span> Mis Dispositivos / CBST</span>
+      </h2>
+    </mat-toolbar>
+    <hr>
+
+    <div class="row clearfix">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="card">
+          <div class="header">
+            <div class="col-xs-12 col-sm-6">
+              <h2><strong>{{ type|uppercase }}: {{getDeviceAlias}} ({{serial}})</strong></h2>
+            </div>
+
+          </div>
+          <div class="body">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="card border-apply">
+                  <div class="m-b-20">
+                    <div class="row justify-content-lg-start">
+                      <div class="col-12">
+
+                        <app-main-device [type]="type" [serial]="serial" [externalError$]="error$"
+                          (deviceIOT)='setDeviceConfig($event)' (deviceError)='setDeviceError($event)'>
+                        </app-main-device>
+
+                        <div class="row" *ngIf="flagDeviceData">
+                          <div class="col-md-12">
+                            <div class="m-b-20">
+                              <div class="mt-5 mb-5" *ngIf="flagLoading">
+                                <div style="display: flex; justify-content: center; align-items: center">
+                                  <div class="preloader pl-size-sm">
+                                    <div class="spinner-layer pl-blue">
+                                      <div class="circle-clipper left">
+                                        <div class="circle"></div>
+                                      </div>
+                                      <div class="circle-clipper right">
+                                        <div class="circle"></div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <ng-template [ngIf]="!flagLoading">
+                                <nav mat-tab-nav-bar mat-align-tabs="center" [tabPanel]="tabPanel">
+                                  <a mat-tab-link *ngFor="let link of navLinks" [routerLink]="link.link"
+                                    routerLinkActive #rla="routerLinkActive" [active]="rla.isActive">
+                                    <mat-icon style="margin-right: 8px">{{link.maticon}}</mat-icon>
+                                    {{link.label}}
+                                  </a>
+                                </nav>
+                                <mat-tab-nav-panel #tabPanel></mat-tab-nav-panel>
+
+                                <router-outlet></router-outlet>
+                              </ng-template>
+
+                            </div>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

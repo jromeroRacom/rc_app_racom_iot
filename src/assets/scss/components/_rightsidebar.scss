@@ -1,0 +1,25 @@
+.rightSetting {
+  padding: 20px 25px 0px 25px;
+  p {
+    font-weight: bold;
+    margin: 0;
+    border-bottom: 1px solid #eee;
+    font-size: 12px;
+    text-align: left;
+  }
+  /* TODO(mdc-migration): The following rule targets internal classes of button that may no longer apply for the MDC version. */
+  .mat-button-toggle-checked {
+    background-color: #6e68c1;
+    color: #ffffff !important;
+  }
+  /* TODO(mdc-migration): The following rule targets internal classes of button that may no longer apply for the MDC version. */
+  .mat-button-toggle {
+    width: 60px;
+    height: 30px;
+    font-size: 14px;
+  }
+  /* TODO(mdc-migration): The following rule targets internal classes of button that may no longer apply for the MDC version. */
+  .mat-button-toggle-appearance-standard .mat-button-toggle-label-content {
+    line-height: 30px !important;
+  }
+}

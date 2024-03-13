@@ -1,0 +1,99 @@
+<div class="container-fluid p-0">
+  <div class="row no-gutters">
+    <div class="col-lg-4">
+      <div class="auth-content p-4 d-flex align-items-center min-vh-100">
+        <div class="w-100">
+          <div class="row justify-content-center">
+            <div class="col-lg-9">
+              <div>
+                <div class="text-center">
+                  <div>
+                    <a routerLink="/auth/signin" class="logo-full"><img src="assets/images/logo-full.png"
+                        alt="logo-full"></a>
+                  </div>
+                  <h4 class="font-20 mt-4">Registrar nuevo usuario</h4>
+                  <p class="text-muted">Cuenta gratis de por vida</p>
+                </div>
+                <div class="p-2 mt-5">
+                  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+
+                    <div *ngFor="let error of listErrors.errors" class="alert alert-danger  mb-3 mt-0">
+                      {{error.msg}}
+                    </div>
+
+                    <div class="form-group auth-form-group mb-4">
+                      <mat-icon matSuffix class="auth-page-icon">face</mat-icon>
+                      <input type="text" formControlName="name" class="form-control auth-control" id="username"
+                        placeholder="Nombre" autocomplete="name"
+                        [ngClass]="{ 'is-invalid':  formValidators.fieldValidate('name') }">
+                      <div *ngIf="formValidators.fieldValidate('name')" class="invalid-feedback">
+                        <div>{{formValidators.getError('name')}}</div>
+                      </div>
+                    </div>
+
+                    <div class="form-group auth-form-group mb-4">
+                      <mat-icon matSuffix class="auth-page-icon">email</mat-icon>
+                      <input type="email" formControlName="email" class="form-control auth-control" id="email"
+                        placeholder="Correo" required autocomplete="email"
+                        [ngClass]="{ 'is-invalid':  formValidators.fieldValidate('email') }">
+                      <div *ngIf="formValidators.fieldValidate('email')" class="invalid-feedback">
+                        <div>Ingresa una dirección de correo valida</div>
+                      </div>
+                    </div>
+
+                    <div class="form-group auth-form-group mb-4">
+                      <mat-icon matSuffix (click)="hide = !hide" class="auth-page-icon">
+                        {{hide ? 'visibility_off' : 'visibility'}}
+                      </mat-icon>
+                      <input type="password" formControlName="password" class="form-control auth-control" id="password"
+                        [type]="hide ? 'password' : 'text'" required autocomplete="new-password"
+                        [ngClass]="{ 'is-invalid':  formValidators.fieldValidate('password') }"
+                        placeholder="Contraseña" />
+                      <div *ngIf="formValidators.fieldValidate('password')" class="invalid-feedback">
+                        <div>{{formValidators.getError('password')}}</div>
+                      </div>
+                    </div>
+
+                    <div class="form-group auth-form-group mb-4">
+                      <mat-icon matSuffix (click)="chide = !chide" class="auth-page-icon">
+                        {{chide ? 'visibility_off' : 'visibility'}}
+                      </mat-icon>
+                      <input [type]="chide ? 'password' : 'text'" formControlName="cpassword" required
+                        autocomplete="new-password" class="form-control auth-control" id="cpassword"
+                        [ngClass]="{ 'is-invalid': formValidators.comparePasswords('password', 'cpassword') }"
+                        placeholder="Confirmar Contraseña" />
+                      <div *ngIf="formValidators.comparePasswords('password', 'cpassword')" class="invalid-feedback">
+                        <div> Las contraseñas no coinciden</div>
+                      </div>
+                    </div>
+
+                    <div class="flex-sb-m w-full p-t-15 p-b-20">
+                      <div>
+                        <span>¿Ya tienes cuenta? <a style="text-decoration: none;" routerLink="/auth/signin">
+                            Ingresar
+                          </a></span>
+                      </div>
+                    </div>
+
+                    <div class="container-login100-form-btn">
+                      <button mat-flat-button color="primary" class="login100-form-btn" type="submit"
+                        [disabled]="!registerForm.valid">
+                        Registrar
+                      </button>
+                    </div>
+                  </form>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-8">
+      <div class="auth-bg">
+        <div class="bg-overlay"></div>
+      </div>
+    </div>
+  </div>
+</div>

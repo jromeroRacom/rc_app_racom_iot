@@ -1,0 +1,144 @@
+<section class="content">
+  <div class="container-fluid">
+    <mat-toolbar>
+      <button mat-icon-button (click)="backClicked()">
+        <mat-icon class="mat-18">arrow_back</mat-icon>
+      </button>
+      <span class="spacer"></span>
+      <h2 class="mt-1"> <span><i class="icon-people"></i></span> Usuarios / Detalle</h2>
+    </mat-toolbar>
+    <mat-toolbar>
+      <span class="spacer"></span>
+      <h2 style="font-size: 1.2rem;">{{user?.email || ''}} </h2>
+    </mat-toolbar>
+    <hr>
+
+    <div class="row clearfix m-b-10">
+      <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+        <mat-card appearance="outlined" >
+          <mat-card-header class="card-container center">
+            <mat-card-title><strong>Detalles</strong></mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="row">
+              <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                <mat-list >
+                  <mat-list-item>
+                    <mat-icon  matListItemIcon>face</mat-icon>
+                    <div matListItemTitle>  <strong>  Nombre </strong> </div>
+                    <div matListItemTitle>{{user?.name ||'??'}}</div>
+                  </mat-list-item>
+                  <mat-list-item>
+                    <mat-icon  matListItemIcon>email</mat-icon>
+                    <div matListItemTitle>  <strong>  Correo</strong> </div>
+                    <div matListItemTitle>{{user?.email || '??'}}</div>
+                  </mat-list-item>
+                  <mat-list-item>
+                    <div matListItemTitle>  <strong>  Rol </strong> </div>
+                    <mat-icon  matListItemIcon>fingerprint</mat-icon>
+                    <div matListItemTitle>{{user?.role || '??'}}</div>
+                  </mat-list-item>
+                </mat-list>
+              </div>
+              <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                <mat-list>
+                  <mat-list-item>
+                    <div matListItemTitle>  <strong>  Estado </strong> </div>
+                    <mat-icon   matListItemIcon *ngIf="user?.state" class="col-green">check_circle</mat-icon>
+                    <mat-icon   matListItemIcon *ngIf="!user?.state" class="col-grey">lens</mat-icon>
+                    <div matListItemTitle *ngIf="user?.state === null">??</div>
+                    <div matListItemTitle *ngIf="user?.state !== null">{{(user?.state)?'Activo':'No activo'}}</div>
+                  </mat-list-item>
+                  <mat-list-item>
+                    <mat-icon  matListItemIcon>watch_later</mat-icon>
+                    <div matListItemTitle>  <strong>  Creado a las </strong> </div>
+                    <div matListItemTitle>  {{(user?.createdAt | date:'medium') || '??'}}</div>
+                  </mat-list-item>
+                  <mat-list-item>
+                    <mat-icon  matListItemIcon>watch_later</mat-icon>
+                    <div matListItemTitle>  <strong>  Actualizado a las </strong> </div>
+                    <div matListItemTitle> {{(user?.updatedAt | date:'medium') || '??'}}</div>
+                  </mat-list-item>
+                </mat-list>
+              </div>
+
+            </div>
+
+          </mat-card-content>
+        </mat-card>
+      </div>
+
+      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+        <mat-card appearance="outlined" >
+          <mat-card-header class="card-container center">
+            <mat-card-title><strong> Acciones </strong></mat-card-title>
+          </mat-card-header>
+          <mat-card-actions class="card-container center">
+            <mat-list >
+              <mat-list-item>
+                <button mat-button
+                        matTooltip="Editar usuario"
+                        matTooltipClass="example-tooltip-red"
+                        aria-label=""
+                        (click)="editUser()">
+                        <mat-icon class="col-blue">mode_edit</mat-icon>
+                </button>
+                <button mat-button
+                        matTooltip="Borrar usuario"
+                        matTooltipClass="example-tooltip-red"
+                        aria-label=""
+                        (click)="deleteUser()">
+                  <mat-icon class="col-red">delete</mat-icon>
+                </button>
+              </mat-list-item>
+            </mat-list>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </div>
+
+    <div class="row clearfix m-t-15">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="card">
+          <div class="body">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="card border-apply">
+                  <div class="m-b-20">
+                    <div class="row justify-content-center">
+                      <div class="col-12">
+                        <app-devices-table  *ngIf="dataReady" [displayedColumns]='displayedDevicesColumns' [userId]='user?.id || 0'></app-devices-table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row clearfix m-t-15">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="card">
+          <div class="body">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="card border-apply">
+                  <div class="m-b-20">
+                    <div class="row justify-content-center">
+                      <div class="col-12">
+                        <app-sessions-table *ngIf="dataReady" [displayedColumns]='displayedSessionsColumns' [userId]='user?.id || 0'></app-sessions-table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,22 @@
+.card-container {
+  /* needed styles below */
+  display: flex;
+
+  &.center{
+    justify-content: center;
+  }
+
+  &.between{
+    justify-content: space-between;
+  }
+
+  &.around{
+    justify-content: space-around;
+  }
+
+}
+
+
+.example-tooltip-red {
+  background: #b71c1c;
+}
