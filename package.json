@@ -1,6 +1,6 @@
 {
-  "name": "atrio",
-  "version": "4.1.0",
+  "name": "racom-iot",
+  "version": "1.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -69,6 +69,7 @@
     "ngx-om-perfect-scrollbar": "^16.0.0",
     "ngx-owl-carousel-o": "^16.0.0",
     "ngx-perfect-scrollbar": "^10.1.1",
+    "ngx-perfect-scrollbar-portable": "^10.1.9",
     "ngx-spinner": "^16.0.2",
     "rxjs": "^6.6.7",
     "simple-line-icons": "^2.5.5",

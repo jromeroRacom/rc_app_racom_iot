@@ -9,7 +9,7 @@ import {
   PerfectScrollbarModule,
   PERFECT_SCROLLBAR_CONFIG,
   PerfectScrollbarConfigInterface
-} from 'ngx-om-perfect-scrollbar';
+} from 'ngx-perfect-scrollbar-portable';
 
 import { AngularMaterialModule } from './material/angular-material.module';
 import { LoadingDialogComponent } from './dialogs/loading-dialog/loading-dialog.component';
