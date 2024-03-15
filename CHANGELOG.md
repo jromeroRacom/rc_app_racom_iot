@@ -14,3 +14,7 @@ versionamiento [v0.0.0]  año-mes-año
 ## Added[2024-03-14]
 
 - Se actualiza dependencia precadente "ngx-perfect-scrollbar": "^10.1.1" a ngx-perfect-scrollbar-portable": "^10.1.9
+
+## Added[2024-03-15]
+
+- Se actualizan dependencias.
