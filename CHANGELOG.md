@@ -18,3 +18,7 @@ versionamiento [v0.0.0]  año-mes-año
 ## Added[2024-03-15]
 
 - Se actualizan dependencias.
+
+## Added[2024-03-20]
+
+- Actualizacion de dependencias.
